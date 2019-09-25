@@ -42,7 +42,7 @@ def simple_Dense(num_classes, input_shape_input,regweight,final_activation,hidde
 
 
 
-def Simple_CNN(num_classes, input_shape_input, kernel_size_input, final_activation):
+def simple_CNN(num_classes, input_shape_input, kernel_size_input, final_activation):
 
     cnn = Sequential()
 

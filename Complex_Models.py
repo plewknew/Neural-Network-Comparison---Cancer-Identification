@@ -238,7 +238,7 @@ def deep_CNN_with_Res(num_classes, input_shape_input, kernel_size_input, final_a
     return model_CNN_res
 
 
-def Dense_Res_noCNN(num_classes, input_shape_input,regweight,final_activation,hidden_size):
+def dense_Res_noCNN(num_classes, input_shape_input,regweight,final_activation,hidden_size):
     inputs = Input(shape=input_shape_input)
     dense_1 = Dense(hidden_size, activation='relu',kernel_regularizer=regularizers.l2(regweight))(inputs)
     batch_dense_1 = BatchNormalization()(dense_1)
