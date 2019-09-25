@@ -22,7 +22,7 @@ def perceptron(num_classes, input_shape_input,regweight,final_activation,hidden_
       Dense(hidden_size, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
       Dense(num_classes, activation=final_activation)])
   
-  mlp_basemodel.compile(optimizer, "categorical_crossentropy", metrics=['accuracy'])
+  mlp_basemodel.compile('adam', "categorical_crossentropy", metrics=['accuracy'])
   
   return mlp_basemodel
 
@@ -37,7 +37,7 @@ def simple_Dense(num_classes, input_shape_input,regweight,final_activation,hidde
       Dense(hidden_size, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
       Dense(num_classes, activation=final_activation)])
   
-  dense_basemodel.compile(optimizer, "categorical_crossentropy", metrics=['accuracy'])
+  dense_basemodel.compile('adam', "categorical_crossentropy", metrics=['accuracy'])
   
   return dense_basemodel
 
