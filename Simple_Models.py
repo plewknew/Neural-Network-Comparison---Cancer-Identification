@@ -14,7 +14,7 @@ import os
 from google.colab import files
 import zipfile
 
-def Simple_Shallow_Dense(num_classes, input_shape_input,regweight,final_activation):
+def perceptron(num_classes, input_shape_input,regweight,final_activation,hidden_size):
 
   mlp_basemodel = Sequential([
       Dense(hidden_size, input_shape=input_shape_input, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
@@ -24,6 +24,21 @@ def Simple_Shallow_Dense(num_classes, input_shape_input,regweight,final_activati
   mlp_basemodel.compile(optimizer, "categorical_crossentropy", metrics=['accuracy'])
   
   return mlp_basemodel
+
+def simple_Dense(num_classes, input_shape_input,regweight,final_activation,hidden_size):
+
+  dense_basemodel = Sequential([
+      Dense(hidden_size, input_shape=input_shape_input, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
+      Dense(hidden_size, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
+      Dense(hidden_size, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
+      Dense(hidden_size, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
+      Dense(hidden_size, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
+      Dense(hidden_size, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
+      Dense(num_classes, activation=final_activation)])
+  
+  dense_basemodel.compile(optimizer, "categorical_crossentropy", metrics=['accuracy'])
+  
+  return dense_basemodel
 
 
 
@@ -46,3 +61,21 @@ def Simple_CNN(num_classes, input_shape_input, kernel_size_input, final_activati
     cnn.compile("adam", "binary_crossentropy", metrics=['accuracy'])
 
     return cnn
+
+def dense_w_dropout(num_classes, input_shape_input,regweight,final_activation,hidden_size,dropout_rate):
+  dense_dropout_model = Sequential([
+    Dense(32, input_shape=input_shape_input, activation='relu'),
+    Dropout(dropout_rate),
+    Dense(hidden_size, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
+    Dropout(dropout_rate),
+    Dense(hidden_size, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
+    Dropout(dropout_rate),
+    Dense(hidden_size, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
+    Dropout(dropout_rate),
+    Dense(hidden_size, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
+    Dropout(dropout_rate),
+    Dense(hidden_size, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
+    Flatten(),
+    Dense(num_classes, activation=final_activation)])
+
+  dense_dropout_model.compile("adam", "categorical_crossentropy", metrics=['accuracy'])
