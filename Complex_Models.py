@@ -14,8 +14,12 @@ import shutil
 import os
 from google.colab import files
 import zipfile
+import warnings
 
 def deep_CNN_without_Res(num_classes, input_shape_input, kernel_size_input, final_activation):
+
+    warnings.filterwarnings("ignore")
+
     inputs = Input(shape=input_shape_input)
 
     conv1_1 = Conv2D(32, kernel_size=kernel_size_input, padding='same')(inputs)
@@ -124,9 +128,14 @@ def deep_CNN_without_Res(num_classes, input_shape_input, kernel_size_input, fina
 
     model_CNN_nores.compile("adam", "binary_crossentropy", metrics=['accuracy'])
 
+    warnings.filterwarnings("default")
+
     return model_CNN_nores
 
 def deep_CNN_with_Res(num_classes, input_shape_input, kernel_size_input, final_activation):
+    
+    warnings.filterwarnings("ignore")
+
     inputs = Input(shape=input_shape_input)
 
     conv1_1 = Conv2D(32, kernel_size=kernel_size_input, padding='same')(inputs)
@@ -190,7 +199,7 @@ def deep_CNN_with_Res(num_classes, input_shape_input, kernel_size_input, final_a
     conv4_2 = Activation("relu")(conv4_2)
     conv4_2 = batch2 = BatchNormalization()(conv4_2)
 
-    skip4 = add([conv4_1, conv4_3])
+    skip4 = add([conv4_1, conv4_2])
     conv4_3 = Conv2D(32, kernel_size=kernel_size_input, padding='same')(skip4)
     conv4_3 = Activation("relu")(conv4_3)
     conv4_3 = batch2 = BatchNormalization()(conv4_3)
@@ -236,10 +245,15 @@ def deep_CNN_with_Res(num_classes, input_shape_input, kernel_size_input, final_a
 
     model_CNN_res.compile("adam", "binary_crossentropy", metrics=['accuracy'])
 
+    warnings.filterwarnings("default")
+
     return model_CNN_res
 
 
 def dense_Res_noCNN(num_classes, input_shape_input,regweight,final_activation,hidden_size):
+    
+    warnings.filterwarnings("ignore")
+    
     inputs = Input(shape=input_shape_input)
     dense_1 = Dense(hidden_size, activation='relu',kernel_regularizer=regularizers.l2(regweight))(inputs)
     batch_dense_1 = BatchNormalization()(dense_1)
@@ -270,4 +284,7 @@ def dense_Res_noCNN(num_classes, input_shape_input,regweight,final_activation,hi
 
 
     resnet_batch_model.compile("adam", "categorical_crossentropy", metrics=['accuracy'])
+
+    warnings.filterwarnings("default")
+
     return resnet_batch_model

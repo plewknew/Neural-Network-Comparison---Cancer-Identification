@@ -14,20 +14,22 @@ import shutil
 import os
 from google.colab import files
 import zipfile
+import warnings
 
 def perceptron(num_classes, input_shape_input,regweight,final_activation,hidden_size):
-
+  warnings.filterwarnings("ignore")
   mlp_basemodel = Sequential([
       Dense(hidden_size, input_shape=input_shape_input, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
       Dense(hidden_size, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
       Dense(num_classes, activation=final_activation)])
   
   mlp_basemodel.compile('adam', "categorical_crossentropy", metrics=['accuracy'])
-  
+  warnings.filterwarnings("default")
+
   return mlp_basemodel
 
 def simple_Dense(num_classes, input_shape_input,regweight,final_activation,hidden_size):
-
+  warnings.filterwarnings("ignore")
   dense_basemodel = Sequential([
       Dense(hidden_size, input_shape=input_shape_input, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
       Dense(hidden_size, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
@@ -38,12 +40,15 @@ def simple_Dense(num_classes, input_shape_input,regweight,final_activation,hidde
       Dense(num_classes, activation=final_activation)])
   
   dense_basemodel.compile('adam', "categorical_crossentropy", metrics=['accuracy'])
-  
+  warnings.filterwarnings("default")
+
   return dense_basemodel
 
 
 
 def simple_CNN(num_classes, input_shape_input, kernel_size_input, final_activation):
+    
+    warnings.filterwarnings("ignore")
 
     cnn = Sequential()
 
@@ -60,10 +65,14 @@ def simple_CNN(num_classes, input_shape_input, kernel_size_input, final_activati
     cnn.add(Dense(num_classes, activation=final_activation))
 
     cnn.compile("adam", "binary_crossentropy", metrics=['accuracy'])
+    
+    warnings.filterwarnings("default")
 
     return cnn
 
 def dense_w_dropout(num_classes, input_shape_input,regweight,final_activation,hidden_size,dropout_rate):
+  warnings.filterwarnings("ignore")
+
   dense_dropout_model = Sequential([
     Dense(32, input_shape=input_shape_input, activation='relu'),
     Dropout(dropout_rate),
@@ -78,5 +87,8 @@ def dense_w_dropout(num_classes, input_shape_input,regweight,final_activation,hi
     Dense(hidden_size, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
     Flatten(),
     Dense(num_classes, activation=final_activation)])
-
+  
   dense_dropout_model.compile("adam", "categorical_crossentropy", metrics=['accuracy'])
+  warnings.filterwarnings("default")
+
+  return dense_dropout_model
