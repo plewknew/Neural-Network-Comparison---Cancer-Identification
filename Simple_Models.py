@@ -14,10 +14,10 @@ import os
 from google.colab import files
 import zipfile
 
-def Simple_Shallow_Dense(num_classes, input_shape_input, final_activation,regweight=0.01,final_activation):
+def Simple_Shallow_Dense(num_classes, input_shape_input,regweight,final_activation):
 
   mlp_basemodel = Sequential([
-      Dense(hidden_size, input_shape=input_shape_input activation='relu',kernel_regularizer=regularizers.l2(regweight)),
+      Dense(hidden_size, input_shape=input_shape_input, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
       Dense(hidden_size, activation='relu',kernel_regularizer=regularizers.l2(regweight)),
       Dense(num_classes, activation=final_activation)])
   
@@ -27,11 +27,11 @@ def Simple_Shallow_Dense(num_classes, input_shape_input, final_activation,regwei
 
 
 
-def Simple_CNN(num_classes, input_shape_input, kernel_size_input, final_activation)
+def Simple_CNN(num_classes, input_shape_input, kernel_size_input, final_activation):
 
     cnn = Sequential()
 
-    cnn.add(Conv2D(32, input_shape=input_shape_input data_format="channels_last", kernel_size=kernel_size_input)
+    cnn.add(Conv2D(32, input_shape=input_shape_input, data_format="channels_last", kernel_size=kernel_size_input))
     cnn.add(Activation("relu"))
     cnn.add(BatchNormalization())
     cnn.add(MaxPooling2D(pool_size=(2, 2)))
