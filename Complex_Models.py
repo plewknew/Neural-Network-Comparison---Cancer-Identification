@@ -7,6 +7,7 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Model
 from keras.layers import Conv2D, MaxPooling2D, Flatten, Dropout
 from keras.layers import BatchNormalization
+from keras import regularizers
 import matplotlib.pyplot as plt
 import pandas as pd
 import shutil
@@ -125,8 +126,8 @@ def deep_CNN_without_Res(num_classes, input_shape_input, kernel_size_input, fina
 
     return model_CNN_nores
 
-def deep_CNN_with_Res(num_classes, input_shape_input, kernel_size_input, final_activation)
-        inputs = Input(shape=input_shape_input)
+def deep_CNN_with_Res(num_classes, input_shape_input, kernel_size_input, final_activation):
+    inputs = Input(shape=input_shape_input)
 
     conv1_1 = Conv2D(32, kernel_size=kernel_size_input, padding='same')(inputs)
     conv1_1 = Activation("relu")(conv1_1)
